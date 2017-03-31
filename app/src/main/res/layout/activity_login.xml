@@ -1,0 +1,155 @@
+<!--Lipu Hossain(lipuhossain67@gmail.com)-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:visibility="invisible"
+        android:background="@color/colorPrimary">
+
+        <!--real image size is 40x50px-->
+        <ImageView
+            android:id="@+id/img_left_header"
+            android:layout_width="67px"
+            android:layout_height="80px"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="22px"
+            android:scaleType="fitCenter"
+            android:padding="10px"
+            android:src="@drawable/back"/>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:layout_width="450px"
+                android:layout_height="200px"
+                android:text="LimeEvent"
+                android:textColor="@color/white"
+                android:textSize="100px"
+                android:tag="100"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:src="@drawable/app_icon" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60px"
+                android:layout_marginRight="60px"
+                android:layout_marginTop="200px"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <apom.org.researchLime.limeevents.customViews.EditTextWithFont
+                        android:id="@+id/et_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="150px"
+                        android:background="@null"
+                        android:hint="User Mail"
+                        android:paddingLeft="100px"
+                        android:textColor="@color/colorAccent"
+                        android:textColorHint="@android:color/white" />
+
+                    <ImageView
+                        android:layout_width="34px"
+                        android:layout_height="41px"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:src="@drawable/user_icon" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="25px"
+                    android:background="@color/colorAccent" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <apom.org.researchLime.limeevents.customViews.EditTextWithFont
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="150px"
+                        android:background="@null"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:paddingLeft="100px"
+                        android:textColor="@color/colorAccent"
+                        android:textColorHint="@android:color/white" />
+
+                    <ImageView
+                        android:layout_width="34px"
+                        android:layout_height="41px"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:src="@drawable/pass_icon" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="25px"
+                    android:background="@color/colorAccent" />
+
+                <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                    android:id="@+id/btn_remember_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="55px"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginTop="40px"
+                    android:textColor="@color/white"
+                    android:textSize="40px"
+                    android:onClick="afterClickSignUp"
+                    android:gravity="center_horizontal"
+                    android:text="Don't have an account?Sign Up"/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:layout_marginTop="130px"
+                android:background="@drawable/btn_blue_rounded_selector"
+                android:tag="45"
+                android:text="LOGIN"
+                android:onClick="login_pressed"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

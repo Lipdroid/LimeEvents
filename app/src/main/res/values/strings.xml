@@ -1,0 +1,17 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">LimeEvents</string>
+    <string name="common_loading">Lodaing</string>
+    <string name="dialog_choose_image_title">Choose Image</string>
+    <string name="common_ok_label">Ok</string>
+    <string name="dialog_error_title">Error</string>
+    <string name="dialog_no_internet_connection">No internet connecton.</string>
+    <string name="dialog_body_no_image">No image selected</string>
+    <string name="dialog_body_no_location">No location Selected</string>
+    <string name="dialog_body_no_title">Please enter a title</string>
+    <string name="dialog_body_email_empty_category">Please Select a category</string>
+    <string name="dialog_body_email_empty_description">Please enter a description</string>
+    <string name="dialog_body_email_empty">Please enter your email</string>
+    <string name="dialog_body_email_empty_password">Please enter your password</string>
+    <string name="dialog_body_no_phone">Please add a phone number</string>
+</resources>
