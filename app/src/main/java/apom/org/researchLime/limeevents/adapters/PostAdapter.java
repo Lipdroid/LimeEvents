@@ -2,6 +2,7 @@ package apom.org.researchLime.limeevents.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class PostAdapter extends SectionedBaseAdapter {
             .build();
 
     private int NEXT_WEEK_POST_MAX_SIZE = 3;
-    private int CURRENT_WEEK_POST_MAX_SIZE = 5;
+    private int CURRENT_WEEK_POST_MAX_SIZE = 3;
     private TextView tvHeaderTitle = null;
     private View.OnClickListener mOnClickListener = null;
 
@@ -94,7 +95,9 @@ public class PostAdapter extends SectionedBaseAdapter {
         mHolder.postOrganizer = (TextView) convertView.findViewById(R.id.post_organizer);
         mHolder.postRate = (TextView) convertView.findViewById(R.id.post_rate);
         mHolder.postLocation = (TextView) convertView.findViewById(R.id.post_address);
+        mHolder.tvFooterViewAll = (TextView) convertView.findViewById(R.id.notification_footer_tv_show_all);
         mHolder.postImage = (ImageView) convertView.findViewById(R.id.post_image);
+        mHolder.btnMain = (CardView) convertView.findViewById(R.id.card_view);
 
         new MultipleScreen(mContext);
         MultipleScreen.resizeAllView((ViewGroup) convertView);
@@ -104,7 +107,7 @@ public class PostAdapter extends SectionedBaseAdapter {
 
         if (item instanceof PostObject) {
             post = (PostObject) item;
-            showPost(post, position);
+            showPost(post, position, section);
         }
 
         mHolder.btnMain.setContentDescription("main");
@@ -133,19 +136,72 @@ public class PostAdapter extends SectionedBaseAdapter {
                 } else if (v.getContentDescription().equals("main")) {
                     // afterClickMain(section, position);
                 } else if (v.getContentDescription().equals("viewAll")) {
-                    // afterClickViewAll(section, position);
+                    afterClickViewAll(section, position);
                 }
 
             }
         };
     }
 
-    private void showPost(PostObject post, int position) {
+    private void afterClickViewAll(int section, int position) {
+        viewAll(section);
+        notifyDataSetChanged();
+    }
+
+    private void viewAll(int section) {
+
+        if (section == 0) {
+            CURRENT_WEEK_POST_MAX_SIZE = mListSection.get(section).getmListData().size();
+        }
+
+        if (section == 1) {
+            NEXT_WEEK_POST_MAX_SIZE = mListSection.get(section).getmListData().size();
+        }
+    }
+
+    private void showPost(PostObject post, int position, int section) {
         mHolder.postTitle.setText(post.getPost_title());
         mHolder.postLocation.setText(post.getPost_address());
         mHolder.postRate.setText(post.getPost_rate());
         mHolder.postOrganizer.setText(post.getPost_organizer());
-        ImageLoader.getInstance().displayImage(post.getPost_image(), mHolder.postImage, option);
+        //ImageLoader.getInstance().displayImage(post.getPost_image(), mHolder.postImage, option);
+
+        if (section == 0) {
+            if (position == CURRENT_WEEK_POST_MAX_SIZE - 1) {
+                //mHolder.rlFooter.setVisibility(View.VISIBLE);
+                //mHolder.tvFooterToretan.setVisibility(View.GONE);
+                int position_section = 0;
+                //TODO: below codes for remove list lesson (temp)
+                if (mListSection.get(position_section).getmSectionSize() <= CURRENT_WEEK_POST_MAX_SIZE) {
+                    // mHolder.rlFooter.setVisibility(View.GONE);
+                    mHolder.tvFooterViewAll.setVisibility(View.GONE);
+                } else {
+                    //mHolder.rlFooter.setVisibility(View.VISIBLE);
+                    mHolder.tvFooterViewAll.setVisibility(View.VISIBLE);
+                }
+            } else {
+                //mHolder.rlFooter.setVisibility(View.GONE);
+                mHolder.tvFooterViewAll.setVisibility(View.GONE);
+
+            }
+        } else if (section == 1) {
+
+            if (position == NEXT_WEEK_POST_MAX_SIZE - 1) {
+
+                int position_section = 1;
+
+//            if(mListSection.get(1).getmSectionSize() <= APP_MAX_SIZE) {
+                //TODO: below codes for remove list lesson (temp)
+                if (mListSection.get(position_section).getmSectionSize() <= NEXT_WEEK_POST_MAX_SIZE) {
+                    mHolder.tvFooterViewAll.setVisibility(View.GONE);
+                } else {
+                    mHolder.tvFooterViewAll.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mHolder.tvFooterViewAll.setVisibility(View.GONE);
+
+            }
+        }
 
     }
 
