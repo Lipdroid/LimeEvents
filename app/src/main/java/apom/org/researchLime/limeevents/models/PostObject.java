@@ -11,6 +11,24 @@ public class PostObject {
     private String post_rate= null;
     private String post_organizer= null;
     private String post_image = null;
+    private String post_time = null;
+    private String post_date = null;
+
+    public String getPost_time() {
+        return post_time;
+    }
+
+    public void setPost_time(String post_time) {
+        this.post_time = post_time;
+    }
+
+    public String getPost_date() {
+        return post_date;
+    }
+
+    public void setPost_date(String post_date) {
+        this.post_date = post_date;
+    }
 
     public String getPost_title() {
         return post_title;

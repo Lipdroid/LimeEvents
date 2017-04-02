@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import apom.org.researchLime.limeevents.LimeApplication;
@@ -114,8 +117,6 @@ public class GlobalUtils {
     }
 
 
-
-
     public static void showDialogRating(final Context context, final DialogForValueCallback dialogCallback) {
         final CustomDialog infoDialog = new CustomDialog(context, R.style.CustomDialogTheme);
         LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -178,6 +179,29 @@ public class GlobalUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static void StartAndEndDateOfThisWeek(Date fromDate) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(fromDate);
+        //first day of week
+        c1.set(Calendar.DAY_OF_WEEK, 1);
+
+        int year1 = c1.get(Calendar.YEAR);
+        int month1 = c1.get(Calendar.MONTH)+1;
+        int day1 = c1.get(Calendar.DAY_OF_MONTH);
+
+        //last day of week
+        c1.set(Calendar.DAY_OF_WEEK, 7);
+
+        int year7 = c1.get(Calendar.YEAR);
+        int month7 = c1.get(Calendar.MONTH)+1;
+        int day7 = c1.get(Calendar.DAY_OF_MONTH);
+
+        Log.e("Startof this week",day1+"/"+month1+"/"+year1);
+        Log.e("last day",day7+"/"+month7+"/"+year7);
+
+
     }
 
 }

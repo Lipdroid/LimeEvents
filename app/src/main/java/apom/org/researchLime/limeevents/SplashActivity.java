@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Date;
+
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
+import apom.org.researchLime.limeevents.utils.GlobalUtils;
 
 public class SplashActivity extends AppCompatActivity {
     //    Views:

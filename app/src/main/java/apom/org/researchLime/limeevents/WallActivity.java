@@ -3,9 +3,16 @@ package apom.org.researchLime.limeevents;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -26,19 +33,32 @@ public class WallActivity extends AppCompatActivity {
     private PullToRefreshListView mLvPost = null;
     private CustomFontTextView btn_new_post = null;
 
+    private FloatingActionsMenu actionsMenu = null;
+
+    private FloatingActionButton logout = null;
+    private FloatingActionButton search = null;
+    private FrameLayout mInterceptorFrame = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wall);
         mLvPost = (PullToRefreshListView) findViewById(R.id.list_post);
         btn_new_post = (CustomFontTextView) findViewById(R.id.btn_new_post);
+        actionsMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        logout = (FloatingActionButton) findViewById(R.id.logout);
+        search = (FloatingActionButton) findViewById(R.id.search);
 
+        search.setIcon(R.drawable.search_gray);
+        logout.setIcon(R.drawable.logout_gray);
 
-        if(GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)){
+        if (GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)) {
             btn_new_post.setVisibility(View.INVISIBLE);
-        }else if(GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)){
+        } else if (GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)) {
             btn_new_post.setVisibility(View.VISIBLE);
         }
+
 
         populateList();
         mLvPost.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
@@ -49,8 +69,54 @@ public class WallActivity extends AppCompatActivity {
             }
 
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                afterClickLogout();
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                afterClickSearch();
+            }
+        });
+
+        mInterceptorFrame = (FrameLayout) findViewById(R.id.fl_interceptor);
+        mInterceptorFrame.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("", "onTouch" + "");
+                if (actionsMenu.isExpanded()) {
+                    actionsMenu.collapse();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mLvPost.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    Log.i("a", "scrolling stopped...");
+                    actionsMenu.setVisibility(View.VISIBLE);
+                }else {
+                    actionsMenu.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         mCorrectSize = CorrectSizeUtil.getInstance(this);
         mCorrectSize.correctSize();
+    }
+
+    private void afterClickSearch() {
+        actionsMenu.collapse();
     }
 
     private void populateList() {
@@ -118,7 +184,7 @@ public class WallActivity extends AppCompatActivity {
     }
 
     private void afterClickLogout() {
-
+        actionsMenu.collapse();
         finish();
         overridePendingTransition(R.anim.anim_nothing,
                 R.anim.anim_slide_out_bottom);
@@ -134,4 +200,5 @@ public class WallActivity extends AppCompatActivity {
         goToAddPostActivity();
 
     }
+
 }

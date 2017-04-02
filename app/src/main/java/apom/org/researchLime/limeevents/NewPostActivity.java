@@ -21,6 +21,8 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import apom.org.researchLime.limeevents.constants.Constants;
@@ -134,15 +136,17 @@ public class NewPostActivity extends AppCompatActivity {
 
     private void afterClickDate() {
         new SingleDateAndTimePickerDialog.Builder(mContext)
-                //.bottomSheet()
-                //.curved()
-                //.minutesStep(15)
+                .bottomSheet()
+                .curved()
                 .title("Set Date & Time")
-                .mainColor(getResources().getColor(R.color.cetagory_item_more_bg))
+                .mainColor(getResources().getColor(R.color.colorPrimary))
                 .listener(new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+                        String formattedDate = dateFormat.format(date).toString();
                         tv_date_label.setText("Date Added " + " ✓");
+
 
                     }
                 }).display();
