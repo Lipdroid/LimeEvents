@@ -14,4 +14,12 @@
     <string name="dialog_body_email_empty">Please enter your email</string>
     <string name="dialog_body_email_empty_password">Please enter your password</string>
     <string name="dialog_body_no_phone">Please add a phone number</string>
+    <string name="dialog_body_name_empty_password">Please enter your name</string>
+    <string name="dialog_body_position_empty_password">Please enter your position</string>
+    <string name="dialog_body_organization_empty_password">Please enter your organization name</string>
+    <string name="dialog_body_phone_empty_password">Please enter your phone number</string>
+    <string name="dialog_body_name_empty_image">No image selected</string>
+    <string name="dialog_body_name_empty_title">Please enter your event title</string>
+    <string name="dialog_body_rate_empty">Please enter a rate</string>
+    <string name="dialog_body_contact_empty">No contact Info</string>
 </resources>

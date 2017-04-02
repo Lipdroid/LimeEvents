@@ -146,7 +146,6 @@
                 android:background="@drawable/btn_blue_rounded_selector"
                 android:tag="45"
                 android:text="LOGIN"
-                android:onClick="login_pressed"
                 android:textColor="@color/white"
                 android:textSize="45px" />
 

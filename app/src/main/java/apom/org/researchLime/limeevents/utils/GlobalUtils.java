@@ -33,8 +33,7 @@ import apom.org.researchLime.limeevents.interfaces.DialogForValueCallback;
 
 public class GlobalUtils {
     private static CustomProgressDialog sPdLoading = null;
-
-
+    public static String user_type = "";
 
 
     public static void showLoadingProgress(Context context) {

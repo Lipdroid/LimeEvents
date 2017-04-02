@@ -13,24 +13,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import apom.org.researchLime.limeevents.adapters.PostAdapter;
+import apom.org.researchLime.limeevents.constants.Constants;
+import apom.org.researchLime.limeevents.customViews.CustomFontTextView;
+import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
 import apom.org.researchLime.limeevents.models.PostObject;
 import apom.org.researchLime.limeevents.models.SectionObject;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
+import apom.org.researchLime.limeevents.utils.GlobalUtils;
 
 public class WallActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
     private PullToRefreshListView mLvPost = null;
+    private CustomFontTextView btn_new_post = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wall);
         mLvPost = (PullToRefreshListView) findViewById(R.id.list_post);
+        btn_new_post = (CustomFontTextView) findViewById(R.id.btn_new_post);
+
+
+        if(GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)){
+            btn_new_post.setVisibility(View.INVISIBLE);
+        }else if(GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)){
+            btn_new_post.setVisibility(View.VISIBLE);
+        }
+
         populateList();
         mLvPost.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-               // populateList();
+                // populateList();
                 refreshView.onRefreshComplete();
             }
 

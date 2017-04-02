@@ -39,6 +39,7 @@
             android:textSize="50px" />
 
         <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/btn_new_post"
             android:layout_width="wrap_content"
             android:layout_height="70px"
             android:layout_alignParentRight="true"

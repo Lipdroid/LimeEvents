@@ -16,4 +16,8 @@ public class Constants {
 
     public static final int REQUEST_FOR_GET_CONTENTS = 2 ;
 
+    public static final String TYPE_ORGANIZER = "organizer";
+    public static final String TYPE_GENERAL_USER = "general_user";
+
+
 }

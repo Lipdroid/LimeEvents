@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_marginTop="150px"
+        android:layout_marginTop="100px"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="120px"
+                android:layout_marginTop="10px"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -83,6 +83,7 @@
                     android:layout_height="match_parent" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/btn_location"
                     android:layout_width="279px"
                     android:layout_height="wrap_content"
@@ -111,7 +112,7 @@
                     android:layout_height="match_parent" />
 
                 <LinearLayout
-                    android:id="@+id/btn_phone"
+                    android:id="@+id/btn_date"
                     android:layout_width="279px"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -119,10 +120,10 @@
                     <ImageView
                         android:layout_width="279px"
                         android:layout_height="188px"
-                        android:src="@drawable/phone" />
+                        android:src="@drawable/callender" />
 
                     <TextView
-                        android:id="@+id/tv_phone"
+                        android:id="@+id/tv_date_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15px"
@@ -163,11 +164,22 @@
 
 
 
+                <apom.org.researchLime.limeevents.customViews.EditTextWithFont
+                    android:id="@+id/et_post_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="150px"
+                    android:background="@null"
+                    android:hint="Location"
+                    android:paddingLeft="20px"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/white" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
                     android:layout_marginLeft="25px"
                     android:layout_marginRight="25px"
+                    android:background="@color/colorAccent" />
                     android:background="@color/colorAccent" />
 
                 <apom.org.researchLime.limeevents.customViews.EditTextWithFont
