@@ -1,11 +1,14 @@
 package apom.org.researchLime.limeevents;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -57,6 +60,7 @@ public class WallActivity extends AppCompatActivity {
             btn_new_post.setVisibility(View.INVISIBLE);
         } else if (GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)) {
             btn_new_post.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -99,13 +103,22 @@ public class WallActivity extends AppCompatActivity {
 
         mLvPost.setOnScrollListener(new AbsListView.OnScrollListener() {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // TODO Auto-generated method stub
+                // TODO Auto-generated method stub-
             }
 
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
                     Log.i("a", "scrolling stopped...");
                     actionsMenu.setVisibility(View.VISIBLE);
+                    //animate the view from btom to top
+                    ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(actionsMenu, "scaleX", 0f, 1f);
+                    ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(actionsMenu, "scaleY", 4f, 1f);
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.playTogether(scaleXAnimator, scaleYAnimator);
+                    animatorSet.setDuration(500);
+                    animatorSet.setInterpolator(new DecelerateInterpolator(2));
+                    actionsMenu.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                    animatorSet.start();
                 }else {
                     actionsMenu.setVisibility(View.INVISIBLE);
                 }

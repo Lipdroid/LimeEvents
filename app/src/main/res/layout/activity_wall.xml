@@ -68,7 +68,11 @@
         android:layout_below= "@id/topbar"
         ptr:ptrDrawable="@drawable/refresh_loading_default"
         ptr:ptrHeaderBackground="@android:color/white" />
-
+    <FrameLayout
+        android:id="@+id/fl_interceptor"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -103,9 +107,5 @@
             fab:fab_colorPressed="@color/white_pressed"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-    <FrameLayout
-        android:id="@+id/fl_interceptor"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 </RelativeLayout>
