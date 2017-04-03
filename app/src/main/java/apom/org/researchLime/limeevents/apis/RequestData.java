@@ -49,15 +49,40 @@ public class RequestData {
 
         switch (typeOfRequest) {
 
-            case Constants.REQUEST_FOR_GET_CONTENTS:
+            case Constants.REQUEST_GET_USER_BY_MAIL:
                 mRestType = Constants.REST_POST;
                 REQUEST_DATA_URL = ConstantURLS.BASE_URL;
-//                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
-//                        (String) parameters.get(Constants.PARAM_TAG)));
-//                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_PAGE_NO,
-//                        (String) parameters.get(Constants.PARAM_PAGE_NO)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
+                        (String) parameters.get(Constants.PARAM_TAG)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_EMAIL,
+                        (String) parameters.get(Constants.PARAM_EMAIL)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_PASSWORD,
+                        (String) parameters.get(Constants.PARAM_PASSWORD)));
+
                 break;
 
+            case Constants.REQUEST_REGISTER_BY_MAIL:
+                mRestType = Constants.REST_POST;
+                REQUEST_DATA_URL = ConstantURLS.BASE_URL;
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
+                        (String) parameters.get(Constants.PARAM_TAG)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_EMAIL,
+                        (String) parameters.get(Constants.PARAM_EMAIL)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_PASSWORD,
+                        (String) parameters.get(Constants.PARAM_PASSWORD)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_NAME,
+                        (String) parameters.get(Constants.PARAM_NAME)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_CATEGORY,
+                        (String) parameters.get(Constants.PARAM_CATEGORY)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_ORGANIZATION,
+                        (String) parameters.get(Constants.PARAM_ORGANIZATION)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_PHONE,
+                        (String) parameters.get(Constants.PARAM_PHONE)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POSITION,
+                        (String) parameters.get(Constants.PARAM_POSITION)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_ACTIVE,
+                        (String) parameters.get(Constants.PARAM_ACTIVE)));
+                break;
             default:
                 break;
         }

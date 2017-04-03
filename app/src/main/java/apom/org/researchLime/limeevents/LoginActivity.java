@@ -5,16 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.HashMap;
+
+import apom.org.researchLime.limeevents.apis.RequestAsyncTask;
 import apom.org.researchLime.limeevents.constants.Constants;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
+import apom.org.researchLime.limeevents.interfaces.AsyncCallback;
+import apom.org.researchLime.limeevents.models.UserObject;
+import apom.org.researchLime.limeevents.utils.APIUtils;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
+import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
 
 public class LoginActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
@@ -24,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private String mail = null;
     private String password = null;
     Context mContext = null;
+    private RequestAsyncTask mRequestAsync = null;
+    private String TAG = "LoginActivity";
+    private UserObject userObject = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +82,64 @@ public class LoginActivity extends AppCompatActivity {
 
         //Api call to server
 
-        gotoHomePage();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put(Constants.PARAM_TAG, "login_by_mail");
+        params.put(Constants.PARAM_EMAIL, mail);
+        params.put(Constants.PARAM_PASSWORD, password);
+
+
+        mRequestAsync = new RequestAsyncTask(mContext, Constants.REQUEST_GET_USER_BY_MAIL, params, new AsyncCallback() {
+            @Override
+            public void done(String result) {
+                Log.e(TAG, result);
+                GlobalUtils.dismissLoadingProgress();
+
+                HashMap<String, Object> returnHash = APIUtils.parseJSON(Constants.REQUEST_GET_USER_BY_MAIL, result);
+
+                if (returnHash.containsKey(Constants.TAG_USER)) {
+                    userObject = (UserObject) returnHash.get(Constants.TAG_USER);
+                    if (userObject != null) {
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, et_mail.getText().toString());
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, et_password.getText().toString());
+                        GlobalUtils.setCurrentUserObj(userObject);
+                        SharedPreferencesUtils.putBoolean(mContext, Constants.ALREADY_LOGGED_IN, true);
+                        SharedPreferencesUtils.putString(mContext, Constants.LOGGED_IN_USER_TYPE, userObject.getUserCategory());
+
+                        gotoHomePage();
+                        finish();
+                    }
+                }
+
+                if (returnHash.containsKey(Constants.TAG_ERROR)) {
+                    String title = getResources().getString(R.string.dialog_error_title);
+                    String action = getResources().getString(R.string.common_ok_label);
+                    String body = (String) returnHash.get(Constants.TAG_ERROR);
+                    ;
+                    if (body != null) {
+                        GlobalUtils.showInfoDialog(mContext, title, body, action, null);
+                    }
+                }
+
+            }
+
+            @Override
+            public void progress() {
+                GlobalUtils.showLoadingProgress(mContext);
+            }
+
+            @Override
+            public void onInterrupted(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+
+            @Override
+            public void onException(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+        });
+
+        mRequestAsync.execute();
+
     }
 
     public void afterClickSignUp(View view) {

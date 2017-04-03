@@ -1,15 +1,26 @@
 package apom.org.researchLime.limeevents;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import apom.org.researchLime.limeevents.apis.RequestAsyncTask;
 import apom.org.researchLime.limeevents.constants.Constants;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
+import apom.org.researchLime.limeevents.interfaces.AsyncCallback;
+import apom.org.researchLime.limeevents.interfaces.DialogCallback;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
+import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
 
 public class RegistrationActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
@@ -26,11 +37,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private String mail = null;
     private String password = null;
     private String name = null;
-    private String position = null;
-    private String organization = null;
+    private String position = "";
+    private String organization = "";
     private String phone = null;
 
     private Context mContext = null;
+    private RequestAsyncTask mRequestAsync = null;
+    private String TAG_LOG = "RegistrationActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +117,80 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void requestForSignUp() {
         //request to server
+
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put(Constants.PARAM_TAG, Constants.SIGN_UP_TAG);
+        params.put(Constants.PARAM_EMAIL, mail);
+        params.put(Constants.PARAM_PASSWORD, password);
+        params.put(Constants.PARAM_NAME, name);
+        params.put(Constants.PARAM_CATEGORY, GlobalUtils.user_type);
+        params.put(Constants.PARAM_ORGANIZATION, organization);
+        params.put(Constants.PARAM_PHONE, phone);
+        params.put(Constants.PARAM_POSITION, position);
+        params.put(Constants.PARAM_ACTIVE, "1");
+
+        mRequestAsync = new RequestAsyncTask(mContext, Constants.REQUEST_REGISTER_BY_MAIL, params, new AsyncCallback() {
+            @Override
+            public void done(String result) {
+                Log.e(TAG_LOG, result);
+                GlobalUtils.dismissLoadingProgress();
+                JSONObject mainJsonObj = null;
+                try {
+                    mainJsonObj = new JSONObject(result);
+                    if(mainJsonObj.getString("success").equals("1")){
+                        SharedPreferencesUtils.putString(mContext,Constants.MAIL_ADDRESS,et_mail.getText().toString());
+                        SharedPreferencesUtils.putString(mContext,Constants.MAIL_PASS,et_password.getText().toString());
+
+                        GlobalUtils.showInfoDialog(mContext, null, getString(R.string.success_registration), "Login", new DialogCallback() {
+                            @Override
+                            public void onAction1() {
+                                startActivity(new Intent(RegistrationActivity.this, WallActivity.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void onAction2() {
+
+                            }
+
+                            @Override
+                            public void onAction3() {
+
+                            }
+
+                            @Override
+                            public void onAction4() {
+
+                            }
+                        });
+                    }else{
+                        GlobalUtils.showInfoDialog(mContext, null, "Sorry,Not registered yet", null, null);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void progress() {
+                GlobalUtils.showLoadingProgress(mContext);
+            }
+
+            @Override
+            public void onInterrupted(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+
+            @Override
+            public void onException(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+        });
+
+        mRequestAsync.execute();
+
     }
 
     private void afterClickBack() {

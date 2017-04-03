@@ -2,6 +2,7 @@ package apom.org.researchLime.limeevents;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,8 +29,10 @@ import apom.org.researchLime.limeevents.customViews.CustomFontTextView;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
 import apom.org.researchLime.limeevents.models.PostObject;
 import apom.org.researchLime.limeevents.models.SectionObject;
+import apom.org.researchLime.limeevents.models.UserObject;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
+import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
 
 public class WallActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
@@ -42,11 +45,15 @@ public class WallActivity extends AppCompatActivity {
     private FloatingActionButton search = null;
     private FrameLayout mInterceptorFrame = null;
 
+    private Context mContext = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wall);
+
+        mContext = WallActivity.this;
+
         mLvPost = (PullToRefreshListView) findViewById(R.id.list_post);
         btn_new_post = (CustomFontTextView) findViewById(R.id.btn_new_post);
         actionsMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
@@ -56,9 +63,11 @@ public class WallActivity extends AppCompatActivity {
         search.setIcon(R.drawable.search_gray);
         logout.setIcon(R.drawable.logout_gray);
 
-        if (GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)) {
+        String user_Type = SharedPreferencesUtils.getString(mContext,Constants.LOGGED_IN_USER_TYPE,Constants.TYPE_GENERAL_USER);
+
+        if (user_Type.equals(Constants.TYPE_GENERAL_USER)) {
             btn_new_post.setVisibility(View.INVISIBLE);
-        } else if (GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)) {
+        } else if (user_Type.equals(Constants.TYPE_ORGANIZER)) {
             btn_new_post.setVisibility(View.VISIBLE);
 
         }
@@ -197,10 +206,11 @@ public class WallActivity extends AppCompatActivity {
     }
 
     private void afterClickLogout() {
+        SharedPreferencesUtils.clearPreference(mContext);
+        GlobalUtils.setCurrentUserObj(null);
         actionsMenu.collapse();
         finish();
-        overridePendingTransition(R.anim.anim_nothing,
-                R.anim.anim_slide_out_bottom);
+        startActivity(new Intent(WallActivity.this, LoginActivity.class));
     }
 
     private void goToAddPostActivity() {

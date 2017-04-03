@@ -7,8 +7,10 @@ import android.os.Bundle;
 
 import java.util.Date;
 
+import apom.org.researchLime.limeevents.constants.Constants;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
+import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
 
 public class SplashActivity extends AppCompatActivity {
     //    Views:
@@ -33,7 +35,12 @@ public class SplashActivity extends AppCompatActivity {
             Runnable run = new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+
+                    if (SharedPreferencesUtils.getBoolean(SplashActivity.this, Constants.ALREADY_LOGGED_IN)) {
+                        startActivity(new Intent(SplashActivity.this,WallActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                    }
                     finish();
                 }
             };

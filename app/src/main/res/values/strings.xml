@@ -22,4 +22,5 @@
     <string name="dialog_body_name_empty_title">Please enter your event title</string>
     <string name="dialog_body_rate_empty">Please enter a rate</string>
     <string name="dialog_body_contact_empty">No contact Info</string>
+    <string name="success_registration">Thanks for registering,You can login now!</string>
 </resources>

@@ -29,6 +29,7 @@ import apom.org.researchLime.limeevents.customViews.CustomDialog;
 import apom.org.researchLime.limeevents.customViews.CustomProgressDialog;
 import apom.org.researchLime.limeevents.interfaces.DialogCallback;
 import apom.org.researchLime.limeevents.interfaces.DialogForValueCallback;
+import apom.org.researchLime.limeevents.models.UserObject;
 
 /**
  * Created by lipuhossain on 1/29/17.
@@ -37,6 +38,7 @@ import apom.org.researchLime.limeevents.interfaces.DialogForValueCallback;
 public class GlobalUtils {
     private static CustomProgressDialog sPdLoading = null;
     public static String user_type = "";
+    private static UserObject userObject = null;
 
 
     public static void showLoadingProgress(Context context) {
@@ -60,6 +62,16 @@ public class GlobalUtils {
         } else {
             CustomProgressDialog.sPdCount++;
         }
+    }
+
+    public static UserObject getCurrentUserObj() {
+
+        return userObject;
+    }
+
+    public static void setCurrentUserObj(UserObject userObj) {
+        userObject = null;
+        userObject = userObj;
     }
 
     public static void dismissLoadingProgress() {
