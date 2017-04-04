@@ -2,6 +2,7 @@ package apom.org.researchLime.limeevents.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+import apom.org.researchLime.limeevents.PostDetailsActivity;
 import apom.org.researchLime.limeevents.R;
 import apom.org.researchLime.limeevents.adapters.holders.PostHolder;
 import apom.org.researchLime.limeevents.models.PostObject;
@@ -33,7 +35,6 @@ public class PostAdapter extends SectionedBaseAdapter {
     private Activity mActivity = null;
     private ArrayList<SectionObject> mListSection = null;
     private PostHolder mHolder = null;
-
     DisplayImageOptions option = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true)
             .showImageOnLoading(R.color.line_config)
             .showImageOnFail(R.color.line_config)
@@ -134,13 +135,22 @@ public class PostAdapter extends SectionedBaseAdapter {
                 if (v.getContentDescription() == null) {
                     return;
                 } else if (v.getContentDescription().equals("main")) {
-                    // afterClickMain(section, position);
+                    afterClickMain(section, position);
                 } else if (v.getContentDescription().equals("viewAll")) {
                     afterClickViewAll(section, position);
                 }
 
             }
         };
+    }
+
+    private void afterClickMain(int section, int position) {
+        PostObject postObj = (PostObject) mListSection.get(section).getmListData().get(position);
+        Intent intent = new Intent(mContext, PostDetailsActivity.class);
+        intent.putExtra(PostObject.class.toString(), postObj);
+        ((Activity) mContext).startActivity(intent);
+        ((Activity) mContext).overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_left);
     }
 
     private void afterClickViewAll(int section, int position) {
@@ -164,8 +174,10 @@ public class PostAdapter extends SectionedBaseAdapter {
         mHolder.postLocation.setText(post.getPost_address());
         mHolder.postRate.setText(post.getPost_rate());
         mHolder.postOrganizer.setText(post.getPost_organizer());
-        //ImageLoader.getInstance().displayImage(post.getPost_image(), mHolder.postImage, option);
 
+        if (post.getPost_image() != null && !post.getPost_image().equals("")) {
+            ImageLoader.getInstance().displayImage(post.getPost_image(), mHolder.postImage, option);
+        }
         if (section == 0) {
             if (position == CURRENT_WEEK_POST_MAX_SIZE - 1) {
                 //mHolder.rlFooter.setVisibility(View.VISIBLE);

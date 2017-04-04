@@ -165,58 +165,10 @@ public class WallActivity extends AppCompatActivity {
 
     private void afterClickSearch() {
         actionsMenu.collapse();
+        startActivity(new Intent(WallActivity.this,ShowAllActivity.class));
     }
 
     private void populateList() {
-//        ArrayList<Object> mListPost = new ArrayList<Object>();
-//
-//        PostObject p = new PostObject();
-//        p.setPost_title("test Name");
-//        p.setPost_address("east avenue ditach");
-//        p.setPost_organizer("Amazon");
-//        p.setPost_rate("5");
-//
-//        PostObject p1 = new PostObject();
-//        p1.setPost_title("test Name");
-//        p1.setPost_address("east avenue ditach");
-//        p1.setPost_organizer("Amazon");
-//        p1.setPost_rate("5");
-//
-//
-//        PostObject p2 = new PostObject();
-//        p2.setPost_title("test Name");
-//        p2.setPost_address("east avenue ditach");
-//        p2.setPost_organizer("Amazon");
-//        p2.setPost_rate("5");
-//
-//
-//        mListPost.add(p1);
-//        PostObject p3 = new PostObject();
-//        p3.setPost_title("test Name");
-//        p3.setPost_address("east avenue ditach");
-//        p3.setPost_organizer("Amazon");
-//        p3.setPost_rate("5");
-//
-//        mListPost.add(p2);
-//        PostObject p4 = new PostObject();
-//        p4.setPost_title("test Name");
-//        p4.setPost_address("east avenue ditach");
-//        p4.setPost_organizer("Amazon");
-//        p4.setPost_rate("5");
-//
-//        mListPost.add(p3);
-//        mListPost.add(p4);
-//        mListPost.add(p);
-//
-
-//
-//        SectionObject s2 = new SectionObject();
-//        s2.setmSectionLabel("Next week posts");
-//        s2.setmSectionSize(mListPost.size());
-//        s2.setmListData(mListPost);
-//        listSection.add(s2);
-//
-
 
         ArrayList<SectionObject> listSection = new ArrayList<SectionObject>();
 
@@ -238,13 +190,21 @@ public class WallActivity extends AppCompatActivity {
         mListSectionTwo.addAll(mListNextWeek);
 
         SectionObject s1 = new SectionObject();
-        s1.setmSectionLabel("This Week Posts");
+        if(mListThisWeek.size() > 0){
+            s1.setmSectionLabel("This Week Posts");
+        }else {
+            s1.setmSectionLabel("No posts for this week");
+        }
         s1.setmSectionSize(mListThisWeek.size());
         s1.setmListData(mListSectionOne);
         listSection.add(s1);
 
         SectionObject s2 = new SectionObject();
-        s2.setmSectionLabel("Next Week Posts");
+        if(mListNextWeek.size() > 0){
+            s2.setmSectionLabel("Next Week Posts");
+        }else {
+            s2.setmSectionLabel("No posts for next week");
+        }
         s2.setmSectionSize(mListNextWeek.size());
         s2.setmListData(mListSectionTwo);
         listSection.add(s2);

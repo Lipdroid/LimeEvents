@@ -145,8 +145,6 @@ public class RegistrationActivity extends AppCompatActivity {
                             @Override
                             public void onAction1() {
                                 SharedPreferencesUtils.putString(mContext, Constants.USER_NAME, name);
-                                SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, et_mail.getText().toString());
-                                SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, et_password.getText().toString());
                                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                                 finish();
                             }

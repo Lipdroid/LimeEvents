@@ -162,7 +162,22 @@
                     android:layout_marginRight="25px"
                     android:background="@color/colorAccent" />
 
+                <apom.org.researchLime.limeevents.customViews.EditTextWithFont
+                    android:id="@+id/et_post_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="150px"
+                    android:background="@null"
+                    android:hint="Description"
+                    android:paddingLeft="20px"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/white" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="25px"
+                    android:background="@color/colorAccent" />
 
                 <apom.org.researchLime.limeevents.customViews.EditTextWithFont
                     android:id="@+id/et_post_location"

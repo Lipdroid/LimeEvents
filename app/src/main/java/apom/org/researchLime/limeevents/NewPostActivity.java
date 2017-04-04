@@ -54,6 +54,7 @@ public class NewPostActivity extends AppCompatActivity {
     private EditTextWithFont et_post_location = null;
     private EditTextWithFont et_rate = null;
     private EditTextWithFont et_contactInfo = null;
+    private EditTextWithFont et_post_description = null;
 
     private LinearLayout btn_image = null;
     private LinearLayout btn_date = null;
@@ -71,6 +72,7 @@ public class NewPostActivity extends AppCompatActivity {
     private String location = null;
     private String rate = null;
     private String contact = null;
+    private String description = null;
     private Button btn_post_submit = null;
 
     ArrayList<Map.Entry<String, Bitmap>> bitmapParams = new ArrayList<Map.Entry<String, Bitmap>>();
@@ -91,6 +93,7 @@ public class NewPostActivity extends AppCompatActivity {
         et_post_location = (EditTextWithFont) findViewById(R.id.et_post_location);
         et_rate = (EditTextWithFont) findViewById(R.id.et_rate);
         et_contactInfo = (EditTextWithFont) findViewById(R.id.et_contactInfo);
+        et_post_description = (EditTextWithFont) findViewById(R.id.et_post_description);
 
         btn_image = (LinearLayout) findViewById(R.id.btn_image);
         btn_date = (LinearLayout) findViewById(R.id.btn_date);
@@ -128,6 +131,7 @@ public class NewPostActivity extends AppCompatActivity {
         location = et_post_location.getText().toString().trim();
         rate = et_rate.getText().toString().trim();
         contact = et_contactInfo.getText().toString().trim();
+        description = et_post_description.getText().toString().trim();
 
         if (image == null) {
             dialogBody = getResources().getString(R.string.dialog_body_name_empty_image);
@@ -141,7 +145,11 @@ public class NewPostActivity extends AppCompatActivity {
             dialogBody = getResources().getString(R.string.dialog_body_name_empty_title);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
             return;
-        } else if (location == null || location.equals("")) {
+        } else if (description == null || description.equals("")) {
+            dialogBody = getResources().getString(R.string.dialog_body_name_empty_description);
+            GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
+            return;
+        }else if (location == null || location.equals("")) {
             dialogBody = getResources().getString(R.string.dialog_body_no_location);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
             return;
@@ -163,6 +171,8 @@ public class NewPostActivity extends AppCompatActivity {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put(Constants.PARAM_TAG, Constants.STORE_POST_TAG);
         params.put(Constants.PARAM_POST_TITLE, title);
+        params.put(Constants.PARAM_POST_DESCRIPTION, description);
+
         params.put(Constants.PARAM_ADDRESS, location);
         params.put(Constants.PARAM_RATE, rate);
 

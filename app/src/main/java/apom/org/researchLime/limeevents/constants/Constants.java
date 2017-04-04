@@ -72,4 +72,5 @@ public class Constants {
     public static final Object GET_CONTENT_TAG = "get_contents";
     public static final int REQUEST_GET_CONTENT = 4;
     public static final String RESULT_GET_CONTENT_TYPE_POST = "post";
+    public static final String PARAM_POST_DESCRIPTION = "post_description";
 }

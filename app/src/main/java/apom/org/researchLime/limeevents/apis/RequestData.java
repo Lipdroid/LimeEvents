@@ -105,6 +105,8 @@ public class RequestData {
                         (String) parameters.get(Constants.PARAM_POST_DATE)));
                 nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_CONTACT_INFO,
                         (String) parameters.get(Constants.PARAM_POST_CONTACT_INFO)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_DESCRIPTION,
+                        (String) parameters.get(Constants.PARAM_POST_DESCRIPTION)));
 
                 if (parameters.containsKey(Constants.PARAM_POST_IMAGE)) {
                     // create hash map to save avatar bitmap

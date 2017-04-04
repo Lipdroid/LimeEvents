@@ -25,4 +25,5 @@
     <string name="success_registration">Thanks for registering,You can login now!</string>
     <string name="success_post">Your post has been succesfully published</string>
     <string name="dialog_body_empty_date">Please select a Date and Time</string>
+    <string name="dialog_body_name_empty_description">please add a description</string>
 </resources>

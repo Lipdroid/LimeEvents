@@ -53,8 +53,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mail = SharedPreferencesUtils.getString(mContext,Constants.MAIL_ADDRESS,"");
-        password = SharedPreferencesUtils.getString(mContext,Constants.MAIL_PASS,"");
+        mail = SharedPreferencesUtils.getString(mContext, Constants.MAIL_ADDRESS);
+        password = SharedPreferencesUtils.getString(mContext, Constants.MAIL_PASS);
+        et_mail.setText(mail);
+        et_password.setText(password);
 
         mCorrectSize = CorrectSizeUtil.getInstance(this);
         mCorrectSize.correctSize();
@@ -155,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_left);
+        finish();
     }
 
 

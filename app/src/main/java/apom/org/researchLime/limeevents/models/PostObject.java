@@ -1,12 +1,15 @@
 package apom.org.researchLime.limeevents.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONObject;
 
 /**
  * Created by lipuhossain on 3/31/17.
  */
 
-public class PostObject {
+public class PostObject implements Parcelable{
 
     private String post_id = null;
     private String post_title = null;
@@ -17,7 +20,27 @@ public class PostObject {
     private String post_image = null;
     private String post_time = null;
     private String post_date = null;
+
+    public PostObject(Parcel in) {
+        this();
+        readFromParcel(in);
+    }
+
+    public PostObject() {
+
+    }
+
+    public String getPost_description() {
+        return post_description;
+    }
+
+    public void setPost_description(String post_description) {
+        this.post_description = post_description;
+    }
+
     private String post_contact_info = null;
+    private String post_description = null;
+
 
     public String getPost_id() {
         return post_id;
@@ -133,8 +156,58 @@ public class PostObject {
             if(jsonObject.has("post_contact_info")) {
                 setPost_contact_info(jsonObject.optString("post_contact_info"));
             }
+            if(jsonObject.has("post_description")) {
+                setPost_description(jsonObject.optString("post_description"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static final Creator<PostObject> CREATOR = new Creator<PostObject>() {
+        @Override
+        public PostObject createFromParcel(Parcel in) {
+            return new PostObject(in);
+        }
+
+        @Override
+        public PostObject[] newArray(int size) {
+            return new PostObject[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeString(post_id);
+        dest.writeString(post_title);
+        dest.writeString(post_address);
+        dest.writeString(post_rate);
+        dest.writeString(post_organizer);
+        dest.writeString(organizer_id);
+        dest.writeString(post_image);
+        dest.writeString(post_time);
+        dest.writeString(post_date);
+        dest.writeString(post_contact_info);
+        dest.writeString(post_description);
+
+    }
+    public void readFromParcel(Parcel in) {
+        this.post_id = in.readString();
+        this.post_title = in.readString();
+        this.post_address = in.readString();
+        this.post_rate = in.readString();
+        this.post_organizer = in.readString();
+        this.organizer_id = in.readString();
+        this.post_image = in.readString();
+        this.post_time = in.readString();
+        this.post_date = in.readString();
+        this.post_contact_info = in.readString();
+        this.post_description = in.readString();
+
     }
 }
