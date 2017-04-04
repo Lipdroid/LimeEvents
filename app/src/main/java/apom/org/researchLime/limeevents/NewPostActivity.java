@@ -12,6 +12,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,17 +20,33 @@ import android.widget.TextView;
 
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import apom.org.researchLime.limeevents.apis.RequestAsyncTask;
 import apom.org.researchLime.limeevents.constants.Constants;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
+import apom.org.researchLime.limeevents.interfaces.AsyncCallback;
+import apom.org.researchLime.limeevents.interfaces.DialogCallback;
+import apom.org.researchLime.limeevents.models.UserObject;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
 import apom.org.researchLime.limeevents.utils.ImageUtils;
+import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
+
+import static apom.org.researchLime.limeevents.R.id.et_mail;
 
 public class NewPostActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
@@ -56,6 +73,12 @@ public class NewPostActivity extends AppCompatActivity {
     private String contact = null;
     private Button btn_post_submit = null;
 
+    ArrayList<Map.Entry<String, Bitmap>> bitmapParams = new ArrayList<Map.Entry<String, Bitmap>>();
+    ArrayList<Object> listParams = new ArrayList<Object>();
+
+    private String date_str = null;
+    private String time_str = null;
+    private RequestAsyncTask mRequestAsync = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +133,10 @@ public class NewPostActivity extends AppCompatActivity {
             dialogBody = getResources().getString(R.string.dialog_body_name_empty_image);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
             return;
+        } else if (date_str == null || time_str == null) {
+            dialogBody = getResources().getString(R.string.dialog_body_empty_date);
+            GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
+            return;
         } else if (title == null || title.equals("")) {
             dialogBody = getResources().getString(R.string.dialog_body_name_empty_title);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
@@ -132,6 +159,80 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     private void reguestForPost() {
+        //request to upload it in the server
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put(Constants.PARAM_TAG, Constants.STORE_POST_TAG);
+        params.put(Constants.PARAM_POST_TITLE, title);
+        params.put(Constants.PARAM_ADDRESS, location);
+        params.put(Constants.PARAM_RATE, rate);
+
+        params.put(Constants.PARAM_POST_ORGANIZER, SharedPreferencesUtils.getString(mContext, Constants.USER_NAME, ""));
+        params.put(Constants.PARAM_POST_ORGANIZER_ID, SharedPreferencesUtils.getString(mContext, Constants.USER_ID, ""));
+        params.put(Constants.PARAM_POST_IMAGE, image);
+        params.put(Constants.PARAM_POST_TIME, time_str);
+        params.put(Constants.PARAM_POST_DATE, date_str);
+        params.put(Constants.PARAM_POST_CONTACT_INFO, contact);
+
+        mRequestAsync = new RequestAsyncTask(mContext, Constants.REQUEST_SUBMIT_POST, params, new AsyncCallback() {
+            @Override
+            public void done(String result) {
+                Log.e("NewPostActivity", result);
+                GlobalUtils.dismissLoadingProgress();
+                JSONObject mainJsonObj = null;
+                try {
+                    mainJsonObj = new JSONObject(result);
+                    if (mainJsonObj.getString("success").equals("1")) {
+                        reset_All();
+                        GlobalUtils.showInfoDialog(mContext, null, getString(R.string.success_post), "Ok", new DialogCallback() {
+                            @Override
+                            public void onAction1() {
+
+                            }
+
+                            @Override
+                            public void onAction2() {
+
+                            }
+
+                            @Override
+                            public void onAction3() {
+
+                            }
+
+                            @Override
+                            public void onAction4() {
+
+                            }
+                        });
+                    } else {
+                        GlobalUtils.showInfoDialog(mContext, null, "Sorry,Post failed", null, null);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void progress() {
+                GlobalUtils.showLoadingProgress(mContext);
+            }
+
+            @Override
+            public void onInterrupted(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+
+            @Override
+            public void onException(Exception e) {
+                GlobalUtils.dismissLoadingProgress();
+            }
+        });
+
+        mRequestAsync.execute();
+
+
     }
 
     private void afterClickDate() {
@@ -143,8 +244,13 @@ public class NewPostActivity extends AppCompatActivity {
                 .listener(new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-                        String formattedDate = dateFormat.format(date).toString();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        date_str = dateFormat.format(date).toString();
+
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+                        time_str = timeFormat.format(date).toString();
+
+
                         tv_date_label.setText("Date Added " + " ✓");
 
 
@@ -237,5 +343,23 @@ public class NewPostActivity extends AppCompatActivity {
     private void getBitmap(Bitmap thumbBitmap) {
         tv_image_label.setText("Image Added " + " ✓");
         image = thumbBitmap;
+    }
+
+
+    private void reset_All() {
+
+        et_post_title.setText("");
+        et_post_location.setText("");
+        et_rate.setText("");
+        et_contactInfo.setText("");
+
+        image = null;
+        date_str = null;
+        time_str = null;
+
+        tv_image_label.setText("Tap to add image");
+        tv_date_label.setText("Date & Time");
+
+
     }
 }

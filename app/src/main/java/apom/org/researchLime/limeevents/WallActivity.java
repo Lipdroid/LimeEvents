@@ -20,16 +20,28 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import apom.org.researchLime.limeevents.adapters.PostAdapter;
+import apom.org.researchLime.limeevents.apis.RequestAsyncTask;
 import apom.org.researchLime.limeevents.constants.Constants;
 import apom.org.researchLime.limeevents.customViews.CustomFontTextView;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
+import apom.org.researchLime.limeevents.interfaces.AsyncCallback;
 import apom.org.researchLime.limeevents.models.PostObject;
 import apom.org.researchLime.limeevents.models.SectionObject;
 import apom.org.researchLime.limeevents.models.UserObject;
+import apom.org.researchLime.limeevents.utils.APIUtils;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
 import apom.org.researchLime.limeevents.utils.GlobalUtils;
 import apom.org.researchLime.limeevents.utils.SharedPreferencesUtils;
@@ -46,6 +58,9 @@ public class WallActivity extends AppCompatActivity {
     private FrameLayout mInterceptorFrame = null;
 
     private Context mContext = null;
+    private String TAG = "WallActivity";
+    private RequestAsyncTask mRequestAsync = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +78,7 @@ public class WallActivity extends AppCompatActivity {
         search.setIcon(R.drawable.search_gray);
         logout.setIcon(R.drawable.logout_gray);
 
-        String user_Type = SharedPreferencesUtils.getString(mContext,Constants.LOGGED_IN_USER_TYPE,Constants.TYPE_GENERAL_USER);
+        String user_Type = SharedPreferencesUtils.getString(mContext, Constants.LOGGED_IN_USER_TYPE, Constants.TYPE_GENERAL_USER);
 
         if (user_Type.equals(Constants.TYPE_GENERAL_USER)) {
             btn_new_post.setVisibility(View.INVISIBLE);
@@ -72,8 +87,7 @@ public class WallActivity extends AppCompatActivity {
 
         }
 
-
-        populateList();
+        getContents(null);
         mLvPost.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -128,9 +142,21 @@ public class WallActivity extends AppCompatActivity {
                     animatorSet.setInterpolator(new DecelerateInterpolator(2));
                     actionsMenu.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                     animatorSet.start();
-                }else {
+                } else {
                     actionsMenu.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        mLvPost.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                getContents(refreshView);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
             }
         });
         mCorrectSize = CorrectSizeUtil.getInstance(this);
@@ -142,63 +168,89 @@ public class WallActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        ArrayList<Object> mListPost = new ArrayList<Object>();
+//        ArrayList<Object> mListPost = new ArrayList<Object>();
+//
+//        PostObject p = new PostObject();
+//        p.setPost_title("test Name");
+//        p.setPost_address("east avenue ditach");
+//        p.setPost_organizer("Amazon");
+//        p.setPost_rate("5");
+//
+//        PostObject p1 = new PostObject();
+//        p1.setPost_title("test Name");
+//        p1.setPost_address("east avenue ditach");
+//        p1.setPost_organizer("Amazon");
+//        p1.setPost_rate("5");
+//
+//
+//        PostObject p2 = new PostObject();
+//        p2.setPost_title("test Name");
+//        p2.setPost_address("east avenue ditach");
+//        p2.setPost_organizer("Amazon");
+//        p2.setPost_rate("5");
+//
+//
+//        mListPost.add(p1);
+//        PostObject p3 = new PostObject();
+//        p3.setPost_title("test Name");
+//        p3.setPost_address("east avenue ditach");
+//        p3.setPost_organizer("Amazon");
+//        p3.setPost_rate("5");
+//
+//        mListPost.add(p2);
+//        PostObject p4 = new PostObject();
+//        p4.setPost_title("test Name");
+//        p4.setPost_address("east avenue ditach");
+//        p4.setPost_organizer("Amazon");
+//        p4.setPost_rate("5");
+//
+//        mListPost.add(p3);
+//        mListPost.add(p4);
+//        mListPost.add(p);
+//
+
+//
+//        SectionObject s2 = new SectionObject();
+//        s2.setmSectionLabel("Next week posts");
+//        s2.setmSectionSize(mListPost.size());
+//        s2.setmListData(mListPost);
+//        listSection.add(s2);
+//
+
+
         ArrayList<SectionObject> listSection = new ArrayList<SectionObject>();
 
-        PostObject p = new PostObject();
-        p.setPost_title("test Name");
-        p.setPost_address("east avenue ditach");
-        p.setPost_organizer("Amazon");
-        p.setPost_rate("5");
-
-        PostObject p1 = new PostObject();
-        p1.setPost_title("test Name");
-        p1.setPost_address("east avenue ditach");
-        p1.setPost_organizer("Amazon");
-        p1.setPost_rate("5");
+        Date date = new Date();
+        List<PostObject> mListThisWeek = getSegmentedList(GlobalUtils.StartAndEndDateOfThisWeek(date)[0], GlobalUtils.StartAndEndDateOfThisWeek(date)[1], GlobalUtils.mListPost);
 
 
-        PostObject p2 = new PostObject();
-        p2.setPost_title("test Name");
-        p2.setPost_address("east avenue ditach");
-        p2.setPost_organizer("Amazon");
-        p2.setPost_rate("5");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 7);
+        Date newDate = cal.getTime();
+
+        List<PostObject> mListNextWeek = getSegmentedList(GlobalUtils.StartAndEndDateOfThisWeek(newDate)[0], GlobalUtils.StartAndEndDateOfThisWeek(newDate)[1], GlobalUtils.mListPost);
 
 
-        mListPost.add(p1);
-        PostObject p3 = new PostObject();
-        p3.setPost_title("test Name");
-        p3.setPost_address("east avenue ditach");
-        p3.setPost_organizer("Amazon");
-        p3.setPost_rate("5");
+        ArrayList<Object> mListSectionOne = new ArrayList<Object>();
+        ArrayList<Object> mListSectionTwo = new ArrayList<Object>();
 
-        mListPost.add(p2);
-        PostObject p4 = new PostObject();
-        p4.setPost_title("test Name");
-        p4.setPost_address("east avenue ditach");
-        p4.setPost_organizer("Amazon");
-        p4.setPost_rate("5");
-
-        mListPost.add(p3);
-        mListPost.add(p4);
-        mListPost.add(p);
+        mListSectionOne.addAll(mListThisWeek);
+        mListSectionTwo.addAll(mListNextWeek);
 
         SectionObject s1 = new SectionObject();
         s1.setmSectionLabel("This Week Posts");
-        s1.setmSectionSize(mListPost.size());
-        s1.setmListData(mListPost);
+        s1.setmSectionSize(mListThisWeek.size());
+        s1.setmListData(mListSectionOne);
         listSection.add(s1);
 
         SectionObject s2 = new SectionObject();
-        s2.setmSectionLabel("Next week posts");
-        s2.setmSectionSize(mListPost.size());
-        s2.setmListData(mListPost);
+        s2.setmSectionLabel("Next Week Posts");
+        s2.setmSectionSize(mListNextWeek.size());
+        s2.setmListData(mListSectionTwo);
         listSection.add(s2);
 
         PostAdapter mAdapter = new PostAdapter(WallActivity.this, listSection);
-
         mLvPost.setAdapter(mAdapter);
-
     }
 
     public void logout_Pressed(View view) {
@@ -222,6 +274,103 @@ public class WallActivity extends AppCompatActivity {
     public void add_new_post_pressed(View view) {
         goToAddPostActivity();
 
+    }
+
+
+    private void getContents(final PullToRefreshBase<ListView> refresh) {
+
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put(Constants.PARAM_TAG, Constants.GET_CONTENT_TAG);
+
+
+        mRequestAsync = new RequestAsyncTask(mContext, Constants.REQUEST_GET_CONTENT, params, new AsyncCallback() {
+            @Override
+            public void done(String result) {
+                Log.e(TAG, result);
+                if (refresh != null) {
+                    refresh.onRefreshComplete();
+                } else {
+                    GlobalUtils.dismissLoadingProgress();
+                }
+                GlobalUtils.mListPost = new ArrayList<PostObject>();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.has(Constants.RESULT_GET_CONTENT_TYPE_POST)) {
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constants.RESULT_GET_CONTENT_TYPE_POST);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObjectItem = jsonArray.getJSONObject(i);
+                            PostObject post = new PostObject();
+                            post.parseJSONPost(jsonObjectItem);
+                            GlobalUtils.mListPost.add(post);
+                        }
+
+
+                    }
+                    populateList();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void progress() {
+                if (refresh == null) {
+                    GlobalUtils.showLoadingProgress(mContext);
+                }
+            }
+
+            @Override
+            public void onInterrupted(Exception e) {
+                if (refresh != null) {
+                    refresh.onRefreshComplete();
+                } else {
+                    GlobalUtils.dismissLoadingProgress();
+                }
+            }
+
+            @Override
+            public void onException(Exception e) {
+                if (refresh != null) {
+                    refresh.onRefreshComplete();
+                } else {
+                    GlobalUtils.dismissLoadingProgress();
+                }
+            }
+        });
+
+        mRequestAsync.execute();
+
+    }
+
+
+    private List<PostObject> getSegmentedList(String startDate_str, String endDate_str, List<PostObject> lList) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        Date convertedDate = new Date();
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        List<PostObject> filteredDate = new ArrayList<PostObject>();
+        Iterator<PostObject> iterator = lList.iterator();
+
+        for (PostObject temp : lList) {
+            try {
+                convertedDate = dateFormat.parse(temp.getPost_date());
+                startDate = dateFormat.parse(startDate_str);
+                endDate = dateFormat.parse(endDate_str);
+                if (temp.getPost_date().equals(startDate_str) || temp.getPost_date().equals(endDate_str) || (convertedDate.before(endDate)) && (convertedDate.after(startDate))) //here "date2" and "date1" must be converted to dateFormat
+                {
+                    filteredDate.add(temp); // You can use these filtered ArrayList
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return filteredDate;
     }
 
 }

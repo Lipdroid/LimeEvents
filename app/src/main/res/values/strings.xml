@@ -23,4 +23,6 @@
     <string name="dialog_body_rate_empty">Please enter a rate</string>
     <string name="dialog_body_contact_empty">No contact Info</string>
     <string name="success_registration">Thanks for registering,You can login now!</string>
+    <string name="success_post">Your post has been succesfully published</string>
+    <string name="dialog_body_empty_date">Please select a Date and Time</string>
 </resources>

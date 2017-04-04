@@ -56,4 +56,20 @@ public class Constants {
 
 
     public static final String LOGGED_IN_USER_TYPE = "user_type_pref";
+    public static final String STORE_POST_TAG = "storePost";
+    public static final String PARAM_POST_TITLE = "post_title";
+    public static final String PARAM_ADDRESS = "post_address";
+    public static final String PARAM_RATE = "post_rate";
+    public static final String PARAM_POST_ORGANIZER = "post_organizer";
+    public static final String PARAM_POST_ORGANIZER_ID = "organizer_id";
+    public static final String PARAM_POST_IMAGE = "post_image";
+    public static final String PARAM_POST_TIME ="post_time" ;
+    public static final String PARAM_POST_DATE = "post_date";
+    public static final String PARAM_POST_CONTACT_INFO = "post_contact_info";
+    public static final int REQUEST_SUBMIT_POST = 3;
+    public static final String USER_NAME = "user_name_pref";
+    public static final String USER_ID = "iser_id_pref";
+    public static final Object GET_CONTENT_TAG = "get_contents";
+    public static final int REQUEST_GET_CONTENT = 4;
+    public static final String RESULT_GET_CONTENT_TYPE_POST = "post";
 }

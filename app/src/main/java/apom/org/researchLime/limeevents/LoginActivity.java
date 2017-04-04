@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mail = SharedPreferencesUtils.getString(mContext,Constants.MAIL_ADDRESS,"");
+        password = SharedPreferencesUtils.getString(mContext,Constants.MAIL_PASS,"");
 
         mCorrectSize = CorrectSizeUtil.getInstance(this);
         mCorrectSize.correctSize();
@@ -99,11 +101,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (returnHash.containsKey(Constants.TAG_USER)) {
                     userObject = (UserObject) returnHash.get(Constants.TAG_USER);
                     if (userObject != null) {
-                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, et_mail.getText().toString());
-                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, et_password.getText().toString());
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, mail);
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, password);
                         GlobalUtils.setCurrentUserObj(userObject);
                         SharedPreferencesUtils.putBoolean(mContext, Constants.ALREADY_LOGGED_IN, true);
                         SharedPreferencesUtils.putString(mContext, Constants.LOGGED_IN_USER_TYPE, userObject.getUserCategory());
+                        SharedPreferencesUtils.putString(mContext, Constants.USER_NAME, userObject.getUserName());
+                        SharedPreferencesUtils.putString(mContext, Constants.USER_ID, userObject.getUserId());
 
                         gotoHomePage();
                         finish();

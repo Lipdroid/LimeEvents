@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         et_phone = (EditTextWithFont) findViewById(R.id.et_phone);
 
 
-        if(GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)){
+        if (GlobalUtils.user_type.equals(Constants.TYPE_GENERAL_USER)) {
 
             et_organization.setVisibility(View.GONE);
             et_position.setVisibility(View.GONE);
@@ -103,7 +103,7 @@ public class RegistrationActivity extends AppCompatActivity {
             dialogBody = getResources().getString(R.string.dialog_body_organization_empty_password);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
             return;
-        } else if ((position == null || position.equals("")) && GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)){
+        } else if ((position == null || position.equals("")) && GlobalUtils.user_type.equals(Constants.TYPE_ORGANIZER)) {
             dialogBody = getResources().getString(R.string.dialog_body_position_empty_password);
             GlobalUtils.showInfoDialog(mContext, null, dialogBody, null, null);
             return;
@@ -137,14 +137,17 @@ public class RegistrationActivity extends AppCompatActivity {
                 JSONObject mainJsonObj = null;
                 try {
                     mainJsonObj = new JSONObject(result);
-                    if(mainJsonObj.getString("success").equals("1")){
-                        SharedPreferencesUtils.putString(mContext,Constants.MAIL_ADDRESS,et_mail.getText().toString());
-                        SharedPreferencesUtils.putString(mContext,Constants.MAIL_PASS,et_password.getText().toString());
+                    if (mainJsonObj.getString("success").equals("1")) {
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, et_mail.getText().toString());
+                        SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, et_password.getText().toString());
 
                         GlobalUtils.showInfoDialog(mContext, null, getString(R.string.success_registration), "Login", new DialogCallback() {
                             @Override
                             public void onAction1() {
-                                startActivity(new Intent(RegistrationActivity.this, WallActivity.class));
+                                SharedPreferencesUtils.putString(mContext, Constants.USER_NAME, name);
+                                SharedPreferencesUtils.putString(mContext, Constants.MAIL_ADDRESS, et_mail.getText().toString());
+                                SharedPreferencesUtils.putString(mContext, Constants.MAIL_PASS, et_password.getText().toString());
+                                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                                 finish();
                             }
 
@@ -163,7 +166,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             }
                         });
-                    }else{
+                    } else {
                         GlobalUtils.showInfoDialog(mContext, null, "Sorry,Not registered yet", null, null);
                     }
                 } catch (JSONException e) {

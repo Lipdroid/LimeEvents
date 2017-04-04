@@ -83,6 +83,61 @@ public class RequestData {
                 nameValueParams.add(new BasicNameValuePair(Constants.PARAM_ACTIVE,
                         (String) parameters.get(Constants.PARAM_ACTIVE)));
                 break;
+
+            case Constants.REQUEST_SUBMIT_POST:
+                mRestType = Constants.REST_POST;
+                REQUEST_DATA_URL = ConstantURLS.BASE_URL;
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
+                        (String) parameters.get(Constants.PARAM_TAG)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_TITLE,
+                        (String) parameters.get(Constants.PARAM_POST_TITLE)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_ADDRESS,
+                        (String) parameters.get(Constants.PARAM_ADDRESS)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_RATE,
+                        (String) parameters.get(Constants.PARAM_RATE)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_ORGANIZER,
+                        (String) parameters.get(Constants.PARAM_POST_ORGANIZER)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_ORGANIZER_ID,
+                        (String) parameters.get(Constants.PARAM_POST_ORGANIZER_ID)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_TIME,
+                        (String) parameters.get(Constants.PARAM_POST_TIME)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_DATE,
+                        (String) parameters.get(Constants.PARAM_POST_DATE)));
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_POST_CONTACT_INFO,
+                        (String) parameters.get(Constants.PARAM_POST_CONTACT_INFO)));
+
+                if (parameters.containsKey(Constants.PARAM_POST_IMAGE)) {
+                    // create hash map to save avatar bitmap
+                    Map.Entry<String, Bitmap> hashIcon = new Map.Entry<String, Bitmap>() {
+
+                        @Override
+                        public String getKey() {
+                            // TODO Auto-generated method stub
+                            return Constants.PARAM_POST_IMAGE;
+                        }
+
+                        @Override
+                        public Bitmap getValue() {
+                            // TODO Auto-generated method stub
+                            return (Bitmap) parameters.get(Constants.PARAM_POST_IMAGE);
+                        }
+
+                        @Override
+                        public Bitmap setValue(Bitmap object) {
+                            // TODO Auto-generated method stub
+                            return (Bitmap) parameters.get(Constants.PARAM_POST_IMAGE);
+                        }
+                    };
+
+                    bitmapParams.add(hashIcon);
+                }
+                break;
+            case Constants.REQUEST_GET_CONTENT:
+                mRestType = Constants.REST_POST;
+                REQUEST_DATA_URL = ConstantURLS.BASE_URL;
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
+                        (String) parameters.get(Constants.PARAM_TAG)));
+                break;
             default:
                 break;
         }

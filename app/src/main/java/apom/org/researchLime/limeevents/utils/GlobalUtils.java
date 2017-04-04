@@ -29,6 +29,7 @@ import apom.org.researchLime.limeevents.customViews.CustomDialog;
 import apom.org.researchLime.limeevents.customViews.CustomProgressDialog;
 import apom.org.researchLime.limeevents.interfaces.DialogCallback;
 import apom.org.researchLime.limeevents.interfaces.DialogForValueCallback;
+import apom.org.researchLime.limeevents.models.PostObject;
 import apom.org.researchLime.limeevents.models.UserObject;
 
 /**
@@ -39,7 +40,7 @@ public class GlobalUtils {
     private static CustomProgressDialog sPdLoading = null;
     public static String user_type = "";
     private static UserObject userObject = null;
-
+    public static List<PostObject> mListPost = null;
 
     public static void showLoadingProgress(Context context) {
         if (CustomProgressDialog.sPdCount <= 0) {
@@ -193,26 +194,32 @@ public class GlobalUtils {
         }
     }
 
-    public static void StartAndEndDateOfThisWeek(Date fromDate) {
+    public static String[] StartAndEndDateOfThisWeek(Date fromDate) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(fromDate);
         //first day of week
         c1.set(Calendar.DAY_OF_WEEK, 1);
 
         int year1 = c1.get(Calendar.YEAR);
-        int month1 = c1.get(Calendar.MONTH)+1;
+        int month1 = c1.get(Calendar.MONTH) + 1;
         int day1 = c1.get(Calendar.DAY_OF_MONTH);
 
         //last day of week
         c1.set(Calendar.DAY_OF_WEEK, 7);
 
         int year7 = c1.get(Calendar.YEAR);
-        int month7 = c1.get(Calendar.MONTH)+1;
+        int month7 = c1.get(Calendar.MONTH) + 1;
         int day7 = c1.get(Calendar.DAY_OF_MONTH);
 
-        Log.e("Startof this week",day1+"/"+month1+"/"+year1);
-        Log.e("last day",day7+"/"+month7+"/"+year7);
+        Log.e("Startof this week", day1 + "/" + month1 + "/" + year1);
+        Log.e("last day", day7 + "/" + month7 + "/" + year7);
 
+
+        String startOfweek = String.format("%02d", day1) + "-" + String.format("%02d", month1) + "-" + year1;
+        String endOfweek =String.format("%02d", day7) + "-" + String.format("%02d", month7) + "-" + year7;
+
+        String[] result = {startOfweek, endOfweek};
+        return result;
 
     }
 

@@ -10,6 +10,7 @@ package apom.org.researchLime.limeevents.apis;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -185,6 +186,7 @@ public class JsonParser {
 
             HttpEntity httpEntity = httpResponse.getEntity();
             mJson = EntityUtils.toString(httpEntity);
+            Log.e("jsonResponse:", mJson);
             mJObj = new JSONObject(mJson);
         } catch (Exception e) {
             e.printStackTrace();
