@@ -75,7 +75,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:tag="50"
-            android:text="Organizer"
+            android:text="Name"
             android:textColor="@color/blacklight"
             android:textSize="50px" />
 
