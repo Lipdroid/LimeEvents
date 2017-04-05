@@ -55,6 +55,7 @@ public class WallActivity extends AppCompatActivity {
 
     private FloatingActionButton logout = null;
     private FloatingActionButton search = null;
+    private FloatingActionButton admin = null;
     private FrameLayout mInterceptorFrame = null;
 
     private Context mContext = null;
@@ -74,9 +75,14 @@ public class WallActivity extends AppCompatActivity {
         actionsMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         logout = (FloatingActionButton) findViewById(R.id.logout);
         search = (FloatingActionButton) findViewById(R.id.search);
+        admin = (FloatingActionButton) findViewById(R.id.admin_panel);
 
         search.setIcon(R.drawable.search_gray);
         logout.setIcon(R.drawable.logout_gray);
+        admin.setIcon(R.drawable.admin);
+
+       // actionsMenu.removeButton(admin);
+
 
         String user_Type = SharedPreferencesUtils.getString(mContext, Constants.LOGGED_IN_USER_TYPE, Constants.TYPE_GENERAL_USER);
 
@@ -108,6 +114,20 @@ public class WallActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 afterClickSearch();
+            }
+        });
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                afterClickAdmin();
+            }
+        });
+
+        btn_new_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddPostActivity();
             }
         });
 
@@ -163,9 +183,14 @@ public class WallActivity extends AppCompatActivity {
         mCorrectSize.correctSize();
     }
 
+    private void afterClickAdmin() {
+        actionsMenu.collapse();
+        startActivity(new Intent(WallActivity.this, AdminActivity.class));
+    }
+
     private void afterClickSearch() {
         actionsMenu.collapse();
-        startActivity(new Intent(WallActivity.this,ShowAllActivity.class));
+        startActivity(new Intent(WallActivity.this, ShowAllActivity.class));
     }
 
     private void populateList() {
@@ -190,9 +215,9 @@ public class WallActivity extends AppCompatActivity {
         mListSectionTwo.addAll(mListNextWeek);
 
         SectionObject s1 = new SectionObject();
-        if(mListThisWeek.size() > 0){
+        if (mListThisWeek.size() > 0) {
             s1.setmSectionLabel("This Week Posts");
-        }else {
+        } else {
             s1.setmSectionLabel("No posts for this week");
         }
         s1.setmSectionSize(mListThisWeek.size());
@@ -200,9 +225,9 @@ public class WallActivity extends AppCompatActivity {
         listSection.add(s1);
 
         SectionObject s2 = new SectionObject();
-        if(mListNextWeek.size() > 0){
+        if (mListNextWeek.size() > 0) {
             s2.setmSectionLabel("Next Week Posts");
-        }else {
+        } else {
             s2.setmSectionLabel("No posts for next week");
         }
         s2.setmSectionSize(mListNextWeek.size());
@@ -231,10 +256,7 @@ public class WallActivity extends AppCompatActivity {
                 R.anim.anim_slide_out_left);
     }
 
-    public void add_new_post_pressed(View view) {
-        goToAddPostActivity();
 
-    }
 
 
     private void getContents(final PullToRefreshBase<ListView> refresh) {

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_admin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="apom.org.researchLime.limeevents.AdminActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:id="@+id/bar"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <!--real image size is 40x50px-->
+        <ImageView
+            android:id="@+id/img_left_header"
+            android:layout_width="67px"
+            android:layout_height="80px"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="22px"
+            android:padding="15px"
+            android:onClick="back_admin"
+            android:visibility="visible"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:tag="50"
+            android:text="Admin Panel"
+            android:textColor="@color/white"
+            android:textSize="50px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="22px"
+            android:padding="10px"
+            android:gravity="center"
+            android:tag="50"
+            android:onClick="add_new_post_pressed"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="50px" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:layout_below="@+id/bar"
+        android:id="@+id/header"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:tag="50"
+            android:text="Organizer"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/organization"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:tag="50"
+            android:text="Organization"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:tag="50"
+            android:text="Email"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:tag="50"
+            android:text="Phone"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_user"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/header"
+        android:scrollbars="none"
+        ptr:ptrDrawable="@drawable/refresh_loading_default"
+        ptr:ptrHeaderBackground="@android:color/white" />
+</RelativeLayout>

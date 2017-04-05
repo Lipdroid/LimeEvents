@@ -1,5 +1,6 @@
 package apom.org.researchLime.limeevents;
 
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,13 +34,13 @@ public class PostDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
-        tv_title =(CustomFontTextView) findViewById(R.id.tv_title);
-        tv_description =(CustomFontTextView) findViewById(R.id.tv_description);
-        tv_location =(CustomFontTextView) findViewById(R.id.tv_location);
-        tv_date =(CustomFontTextView) findViewById(R.id.tv_date);
-        tv_time =(CustomFontTextView) findViewById(R.id.tv_time);
-        tv_rate =(CustomFontTextView) findViewById(R.id.tv_rate);
-        image =(ImageView) findViewById(R.id.image);
+        tv_title = (CustomFontTextView) findViewById(R.id.tv_title);
+        tv_description = (CustomFontTextView) findViewById(R.id.tv_description);
+        tv_location = (CustomFontTextView) findViewById(R.id.tv_location);
+        tv_date = (CustomFontTextView) findViewById(R.id.tv_date);
+        tv_time = (CustomFontTextView) findViewById(R.id.tv_time);
+        tv_rate = (CustomFontTextView) findViewById(R.id.tv_rate);
+        image = (ImageView) findViewById(R.id.image);
 
         try {
             post = getIntent().getParcelableExtra(PostObject.class.toString());
@@ -48,7 +49,7 @@ public class PostDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(post != null){
+        if (post != null) {
             showInfo(post);
         }
         //mCorrectSize = CorrectSizeUtil.getInstance(this);
@@ -74,5 +75,15 @@ public class PostDetailsActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_right);
+    }
+
+    public void share_pressed(View view) {
+
+        String shareText = post.getPost_title()+" event is happening "+post.getPost_date()+" in "+post.getPost_address()+". Download this app and keep up to date with the detail. <http://www.googlePlaystore.com>";
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 }

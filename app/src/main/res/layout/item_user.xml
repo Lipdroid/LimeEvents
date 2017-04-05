@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:weightSum="4"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+        android:layout_width="match_parent"
+        android:id="@+id/name"
+        android:layout_height="200px"
+        android:textSize="50px"
+        android:textColor="@color/colorPrimary"
+        android:text="Organizer"
+        android:singleLine="true"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:tag = "50"/>
+
+    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:textSize="50px"
+        android:id="@+id/organization"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:textColor="@color/colorPrimary"
+        android:text="Organization"
+        android:gravity="center|left"
+        android:tag = "50"/>
+    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:id="@+id/email"
+        android:singleLine="true"
+        android:textSize="50px"
+        android:layout_weight="1"
+        android:textColor="@color/colorPrimary"
+        android:text="Email"
+        android:gravity="center|left"
+        android:tag = "50"/>
+    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:textSize="50px"
+        android:id="@+id/phone"
+        android:singleLine="true"
+        android:layout_weight="1"
+        android:textColor="@color/colorPrimary"
+        android:text="Phone"
+        android:gravity="center|left"
+        android:tag = "50"/>
+
+
+
+</LinearLayout>

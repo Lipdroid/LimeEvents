@@ -140,6 +140,13 @@ public class RequestData {
                 nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
                         (String) parameters.get(Constants.PARAM_TAG)));
                 break;
+
+            case Constants.GET_CONTENT_USER:
+                mRestType = Constants.REST_POST;
+                REQUEST_DATA_URL = ConstantURLS.BASE_URL;
+                nameValueParams.add(new BasicNameValuePair(Constants.PARAM_TAG,
+                        (String) parameters.get(Constants.PARAM_TAG)));
+                break;
             default:
                 break;
         }

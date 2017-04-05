@@ -42,7 +42,6 @@ public class APIUtils {
                         }
                     }
                     break;
-
                 default:
                     break;
             }
