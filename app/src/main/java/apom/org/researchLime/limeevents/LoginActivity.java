@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 import apom.org.researchLime.limeevents.apis.RequestAsyncTask;
 import apom.org.researchLime.limeevents.constants.Constants;
+import apom.org.researchLime.limeevents.customViews.CustomFontTextView;
 import apom.org.researchLime.limeevents.customViews.EditTextWithFont;
 import apom.org.researchLime.limeevents.interfaces.AsyncCallback;
 import apom.org.researchLime.limeevents.models.UserObject;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private RequestAsyncTask mRequestAsync = null;
     private String TAG = "LoginActivity";
     private UserObject userObject = null;
-
+    CustomFontTextView btn_signup = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +45,20 @@ public class LoginActivity extends AppCompatActivity {
 
         et_mail = (EditTextWithFont) findViewById(R.id.et_mail);
         et_password = (EditTextWithFont) findViewById(R.id.et_password);
+        btn_signup = (CustomFontTextView) findViewById(R.id.btn_signup);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 afterClickLogin();
+            }
+        });
+
+        btn_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGenderdialog();
             }
         });
 
@@ -148,16 +157,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void afterClickSignUp(View view) {
 
-        showGenderdialog();
-    }
 
     private void gotoSignUpPage() {
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_left);
-        finish();
     }
 
 

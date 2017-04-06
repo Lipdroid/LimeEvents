@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#b5d0ee">
+        android:background="@color/colorAccent">
 
         <apom.org.researchLime.limeevents.customViews.CustomFontTextView
             android:id="@+id/notification_header_tv_title"

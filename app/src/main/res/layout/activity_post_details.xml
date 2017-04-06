@@ -35,7 +35,7 @@
         android:tag="70px"
         android:layout_marginLeft="-35px"
         android:text="Title of the Post"
-        android:textColor="@color/white"
+        android:textColor="@color/blacklight"
         android:textSize="70px" />
 </LinearLayout>
 
