@@ -17,6 +17,8 @@ public class Constants {
 
     public static final String TYPE_ORGANIZER = "organizer";
     public static final String TYPE_GENERAL_USER = "general_user";
+    public static final String TYPE_ADMIN_USER = "admin";
+
 
 
     public static final int REQUEST_GET_USER_BY_MAIL = 1;

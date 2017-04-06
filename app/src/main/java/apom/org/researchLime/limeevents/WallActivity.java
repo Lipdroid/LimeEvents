@@ -81,16 +81,17 @@ public class WallActivity extends AppCompatActivity {
         logout.setIcon(R.drawable.logout_gray);
         admin.setIcon(R.drawable.admin);
 
-       // actionsMenu.removeButton(admin);
+
 
 
         String user_Type = SharedPreferencesUtils.getString(mContext, Constants.LOGGED_IN_USER_TYPE, Constants.TYPE_GENERAL_USER);
 
         if (user_Type.equals(Constants.TYPE_GENERAL_USER)) {
             btn_new_post.setVisibility(View.INVISIBLE);
+            actionsMenu.removeButton(admin);
         } else if (user_Type.equals(Constants.TYPE_ORGANIZER)) {
             btn_new_post.setVisibility(View.VISIBLE);
-
+            actionsMenu.removeButton(admin);
         }
 
         getContents(null);
