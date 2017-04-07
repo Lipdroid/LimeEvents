@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_wall"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="apom.org.researchLime.limeevents.WallActivity">
 
     <RelativeLayout
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="132px"
-        android:id="@+id/topbar"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
@@ -22,11 +22,11 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25px"
             android:layout_marginTop="22px"
-            android:padding="0px"
             android:onClick="logout_Pressed"
-            android:visibility="invisible"
+            android:padding="0px"
             android:scaleType="fitCenter"
-            android:src="@drawable/logout" />
+            android:src="@drawable/logout"
+            android:visibility="invisible" />
 
         <apom.org.researchLime.limeevents.customViews.CustomFontTextView
             android:layout_width="wrap_content"
@@ -46,8 +46,57 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="25px"
             android:layout_marginTop="22px"
-            android:padding="10px"
             android:gravity="center"
+            android:padding="10px"
+            android:tag="50"
+            android:text="New Post"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/contactBar"
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:layout_below="@+id/topbar"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <!--real image size is 40x50px-->
+        <ImageView
+            android:layout_width="67px"
+            android:layout_height="80px"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="22px"
+            android:onClick="logout_Pressed"
+            android:padding="0px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logout"
+            android:visibility="invisible" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:tag="50"
+            android:text="Contact +223 205897681"
+            android:textColor="@color/blacklight"
+            android:textSize="50px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="22px"
+            android:gravity="center"
+            android:padding="10px"
+            android:visibility="invisible"
             android:tag="50"
             android:text="New Post"
             android:textColor="@color/blacklight"
@@ -61,17 +110,18 @@
         android:id="@+id/list_post"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scrollbars="none"
-        android:divider="@null"
+        android:layout_below="@id/contactBar"
         android:background="@color/white"
-        android:layout_below= "@id/topbar"
+        android:divider="@null"
+        android:scrollbars="none"
         ptr:ptrDrawable="@drawable/refresh_loading_default"
         ptr:ptrHeaderBackground="@android:color/white" />
+
     <FrameLayout
         android:id="@+id/fl_interceptor"
-        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants" />
 
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -79,39 +129,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         fab:fab_addButtonColorNormal="@color/colorPrimary"
         fab:fab_addButtonColorPressed="@color/white_pressed"
         fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp">
+        fab:fab_labelStyle="@style/menu_labels_style">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/admin_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="Admin Panel"
-            fab:fab_colorPressed="@color/white_pressed"/>
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Admin Panel" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="All Posts"
-            fab:fab_colorPressed="@color/white_pressed"/>
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="All Posts" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="Logout"
-            fab:fab_colorPressed="@color/white_pressed"/>
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Logout" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

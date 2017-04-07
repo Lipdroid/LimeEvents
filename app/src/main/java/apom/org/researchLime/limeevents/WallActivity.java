@@ -1,9 +1,13 @@
 package apom.org.researchLime.limeevents;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,7 +61,7 @@ public class WallActivity extends AppCompatActivity {
     private FloatingActionButton search = null;
     private FloatingActionButton admin = null;
     private FrameLayout mInterceptorFrame = null;
-
+    private RelativeLayout contactBar = null;
     private Context mContext = null;
     private String TAG = "WallActivity";
     private RequestAsyncTask mRequestAsync = null;
@@ -76,12 +80,11 @@ public class WallActivity extends AppCompatActivity {
         logout = (FloatingActionButton) findViewById(R.id.logout);
         search = (FloatingActionButton) findViewById(R.id.search);
         admin = (FloatingActionButton) findViewById(R.id.admin_panel);
+        contactBar = (RelativeLayout) findViewById(R.id.contactBar);
 
         search.setIcon(R.drawable.search_gray);
         logout.setIcon(R.drawable.logout_gray);
         admin.setIcon(R.drawable.admin);
-
-
 
 
         String user_Type = SharedPreferencesUtils.getString(mContext, Constants.LOGGED_IN_USER_TYPE, Constants.TYPE_GENERAL_USER);
@@ -102,6 +105,24 @@ public class WallActivity extends AppCompatActivity {
                 refreshView.onRefreshComplete();
             }
 
+        });
+
+        contactBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+223 205897681"));
+                if (ActivityCompat.checkSelfPermission(WallActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(intent);
+            }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -256,8 +277,6 @@ public class WallActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_left);
     }
-
-
 
 
     private void getContents(final PullToRefreshBase<ListView> refresh) {

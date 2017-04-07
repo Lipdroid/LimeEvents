@@ -32,181 +32,190 @@
         android:layout_height="100px"
         android:gravity="center"
         android:singleLine="true"
-        android:tag="70px"
+        android:tag="70"
         android:layout_marginLeft="-35px"
         android:text="Title of the Post"
         android:textColor="@color/blacklight"
         android:textSize="70px" />
 </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="400px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:scaleType="fitXY"
-        android:background="#747474" />
-
-
-    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:gravity="center|left"
-        android:tag="70px"
-        android:text="Description"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:textColor="@color/colorPrimary"
-        android:textSize="70px" />
-
-    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-        android:id="@+id/tv_description"
-        android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:gravity="left"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:maxLines="3"
-        android:tag="50px"
-        android:text="Descriptkjasdj klsnakldkasn jasndjbnaskj kjsandjnion kjsdjskjand ajksndjksanjkdnjkas kjsjkdnsakjn jsnjdnsakjn "
-        android:textColor="@color/common_gray_txt"
-        android:textSize="50px" />
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:orientation="horizontal">
-
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:layout_width="250px"
-            android:layout_height="100px"
-            android:gravity="center|left"
-            android:tag="50px"
-            android:text="Location:"
-            android:textColor="@color/colorPrimary"
-            android:textSize="50px" />
-
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:id="@+id/tv_location"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:layout_marginLeft="10px"
+            android:layout_height="400px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:scaleType="fitCenter"
+            android:background="@null" />
+
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:tag="70"
+            android:text="Description"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:textColor="@color/colorPrimary"
+            android:textSize="70px" />
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left"
-            android:singleLine="true"
-            android:tag="50px"
-            android:text="Descriptkjasdj"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:maxLines="5"
+            android:tag="50"
+            android:text="Descriptkjasdj klsnakldkasn jasndjbnaskj kjsandjnion kjsdjskjand ajksndjksanjkdnjkas kjsjkdnsakjn jsnjdnsakjn "
             android:textColor="@color/common_gray_txt"
             android:textSize="50px" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:orientation="horizontal">
-
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:layout_width="250px"
-            android:layout_height="100px"
-            android:gravity="center|left"
-            android:tag="50px"
-            android:text="Date:"
-            android:textColor="@color/colorPrimary"
-            android:textSize="50px" />
-
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:id="@+id/tv_date"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginLeft="10px"
-            android:gravity="left"
-            android:singleLine="true"
-            android:tag="50px"
-            android:text="Descriptkjasdj"
-            android:textColor="@color/common_gray_txt"
-            android:textSize="50px" />
-    </LinearLayout>
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:orientation="horizontal">
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:layout_width="250px"
+                android:layout_height="100px"
+                android:gravity="center|left"
+                android:tag="50"
+                android:text="Location:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="50px" />
 
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:layout_width="250px"
-            android:layout_height="100px"
-            android:gravity="center|left"
-            android:tag="50px"
-            android:text="Time:"
-            android:textColor="@color/colorPrimary"
-            android:textSize="50px" />
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="left"
+                android:singleLine="true"
+                android:tag="50"
+                android:text="Descriptkjasdj"
+                android:textColor="@color/common_gray_txt"
+                android:textSize="50px" />
+        </LinearLayout>
 
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:id="@+id/tv_time"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginLeft="10px"
-            android:gravity="left"
-            android:singleLine="true"
-            android:tag="50px"
-            android:text="Descriptkjasdj"
-            android:textColor="@color/common_gray_txt"
-            android:textSize="50px" />
-    </LinearLayout>
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:orientation="horizontal">
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:layout_width="250px"
+                android:layout_height="100px"
+                android:gravity="center|left"
+                android:tag="50"
+                android:text="Date:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="50px" />
 
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:layout_width="250px"
-            android:layout_height="100px"
-            android:gravity="center|left"
-            android:tag="50px"
-            android:text="Rate:"
-            android:textColor="@color/colorPrimary"
-            android:textSize="50px" />
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="left"
+                android:singleLine="true"
+                android:tag="50"
+                android:text="Descriptkjasdj"
+                android:textColor="@color/common_gray_txt"
+                android:textSize="50px" />
+        </LinearLayout>
 
-        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-            android:id="@+id/tv_rate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginLeft="10px"
-            android:gravity="left"
-            android:singleLine="true"
-            android:tag="50px"
-            android:text="Descriptkjasdj"
-            android:textColor="@color/common_gray_txt"
-            android:textSize="50px" />
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:orientation="horizontal">
+
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:layout_width="250px"
+                android:layout_height="100px"
+                android:gravity="center|left"
+                android:tag="50"
+                android:text="Time:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="50px" />
+
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="left"
+                android:singleLine="true"
+                android:tag="50"
+                android:text="Descriptkjasdj"
+                android:textColor="@color/common_gray_txt"
+                android:textSize="50px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:orientation="horizontal">
+
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:layout_width="250px"
+                android:layout_height="100px"
+                android:gravity="center|left"
+                android:tag="50"
+                android:text="Rate:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="50px" />
+
+            <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+                android:id="@+id/tv_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="left"
+                android:singleLine="true"
+                android:tag="50"
+                android:text="Descriptkjasdj"
+                android:textColor="@color/common_gray_txt"
+                android:textSize="50px" />
+        </LinearLayout>
+
+        <apom.org.researchLime.limeevents.customViews.CustomFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:tag="70"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:text="Share Event With"
+            android:textColor="@color/colorPrimary"
+            android:textSize="70px" />
+
+        <ImageView
+            android:layout_width="400px"
+            android:layout_height="300px"
+            android:onClick="share_pressed"
+            android:layout_gravity="center"
+            android:src="@drawable/share"/>
+
+
     </LinearLayout>
-
-    <apom.org.researchLime.limeevents.customViews.CustomFontTextView
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:gravity="center|left"
-        android:tag="70px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:text="Share Event With"
-        android:textColor="@color/colorPrimary"
-        android:textSize="70px" />
-
-    <ImageView
-        android:layout_width="400px"
-        android:layout_height="300px"
-        android:onClick="share_pressed"
-        android:layout_gravity="center"
-        android:src="@drawable/share"/>
+</ScrollView>
 
 
 

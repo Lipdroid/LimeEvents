@@ -123,7 +123,7 @@
         android:paddingBottom="15px"
         android:tag="35"
         android:text="Show More"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#747474"
         android:textSize="35px"
         android:visibility="visible" />
 </RelativeLayout>

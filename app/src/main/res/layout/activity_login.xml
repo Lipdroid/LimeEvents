@@ -76,7 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150px"
                             android:background="@null"
-                            android:hint="User Mail"
+                            android:hint="User Email"
                             android:paddingLeft="100px"
                             android:textColor="@color/text_dark"
                             android:textColorHint="@color/blacklight"/>
@@ -136,6 +136,7 @@
                         android:layout_marginTop="40px"
                         android:textColor="@color/blacklight"
                         android:textSize="40px"
+                        android:tag="40"
                         android:gravity="center_horizontal"
                         android:text="Don't have an account?Sign Up" />
 
@@ -144,7 +145,7 @@
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
-                    android:layout_height="120px"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="30px"
                     android:layout_marginLeft="100px"

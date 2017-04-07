@@ -64,7 +64,7 @@
         android:id="@+id/header"
         android:background="@color/colorAccent"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="3">
 
 
         <apom.org.researchLime.limeevents.customViews.CustomFontTextView
@@ -96,6 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="200px"
             android:layout_weight="1"
+            android:visibility="gone"
             android:gravity="center"
             android:singleLine="true"
             android:tag="50"

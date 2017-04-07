@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import apom.org.researchLime.limeevents.customViews.CustomFontTextView;
 import apom.org.researchLime.limeevents.models.PostObject;
 import apom.org.researchLime.limeevents.utils.CorrectSizeUtil;
+import apom.org.researchLime.limeevents.utils.MultipleScreen;
 
 public class PostDetailsActivity extends AppCompatActivity {
     CorrectSizeUtil mCorrectSize = null;
@@ -52,8 +53,9 @@ public class PostDetailsActivity extends AppCompatActivity {
         if (post != null) {
             showInfo(post);
         }
-        //mCorrectSize = CorrectSizeUtil.getInstance(this);
-        //mCorrectSize.correctSize();
+        mCorrectSize = CorrectSizeUtil.getInstance(this);
+        mCorrectSize.correctSize();
+
     }
 
     private void showInfo(PostObject post) {
@@ -78,8 +80,8 @@ public class PostDetailsActivity extends AppCompatActivity {
     }
 
     public void share_pressed(View view) {
-
-        String shareText = post.getPost_title()+" event is happening "+post.getPost_date()+" in "+post.getPost_address()+". Download this app and keep up to date with the detail. <http://www.googlePlaystore.com>";
+        String googlPlaystoreLink = "https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName();
+        String shareText = post.getPost_title()+" event is happening "+post.getPost_date()+" in "+post.getPost_address()+". Download this app and keep up to date with the detail. "+googlPlaystoreLink;
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
